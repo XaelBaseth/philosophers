@@ -6,12 +6,34 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:12 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/30 10:27:32 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:49:20 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
+/*	Helper function that checks if a philosophers died of starvation. */
+static void	check_starvation(t_philo *philos)
+{
+	int i;
+	i = -1;
+	
+	while (++i < philos->args->nbr_of_philo)
+	{
+		pthread_mutex_lock(&philos[i].can_die);
+		if (starved(&philos[i]))
+		{
+			monitoring(philos, DEAD);
+			philos->args->someone_died = true;
+			pthread_mutex_unlock(&philos[i].can_die);
+			pthread_mutex_unlock(&philos[i].args->monitoring_mutex);
+			return ;
+		}
+		pthread_mutex_unlock(&philos[i].can_die);
+	}
+}
+
+/*	Helper function that checks if every philosophers eats. */
 static void	*supervisor(void *philos)
 {	
 	t_philo	*casted;
@@ -20,23 +42,14 @@ static void	*supervisor(void *philos)
 	casted = (t_philo *)philos;
 	while (!all_ate_n_times(casted))
 	{
+		check_starvation(casted);
 		i = -1;
 		while (++i < casted->args->nbr_of_philo)
 		{
-			pthread_mutex_lock(&casted[i].can_die);
-			if (starved(&casted[i]))
-			{
-				monitoring(casted, DEAD);
-				casted->args->someone_died = true;
-				pthread_mutex_unlock(&casted[i].can_die);
-				pthread_mutex_unlock(&casted[i].args->monitoring_mutex);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&casted[i].can_die);
 			pthread_mutex_lock(&casted[i].eaten_meals_mutex);
 			pthread_mutex_lock(&casted->args->satisfied_philo_mutex);
 			if (casted[i].eaten_meals == casted->args->must_eat_times)
-				casted->args->satisfied_philos += 1;
+				casted->args->satisfied_philos++;
 			pthread_mutex_unlock(&casted[i].eaten_meals_mutex);
 			pthread_mutex_unlock(&casted->args->satisfied_philo_mutex);
 		}
@@ -45,7 +58,7 @@ static void	*supervisor(void *philos)
 	return (NULL);
 }
 
-
+/*	Helper function that creates the thread that is used by the supervisor function. */
 static bool	create_supervisor(t_args *args, pthread_mutex_t *forks,
 							t_philo *philos)
 {
@@ -65,6 +78,8 @@ static bool	create_supervisor(t_args *args, pthread_mutex_t *forks,
 	return (true);
 }
 
+/*	Creates the threads for every philosopher and ensure that they eats with
+	the help of the supervisor function. */
 bool	create_threads(t_args *args, t_philo *philos, pthread_mutex_t *forks)
 {
 	int	i;

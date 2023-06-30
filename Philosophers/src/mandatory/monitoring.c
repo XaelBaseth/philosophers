@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:28 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/29 12:37:19 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:51:12 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #define SLEEP_STR "is sleeping.\n"
 #define DEAD_STR "is dead.\n"
 
+/*	Monitors and printouts the according message for every philosophers 
+	actions. */
 void	monitoring(t_philo *philo, t_event_id event)
 {
 	suseconds_t	timestamp;

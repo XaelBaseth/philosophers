@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:14:20 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/28 13:14:25 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:45:20 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #define ARGS_0 "nbr_of_philosophers and must_eat_times must be bigger \
 than 0.\n"
 
+/*	Initializes the structures t_args accordingly to the inputed
+	parameters. */
 bool	init_args(t_args *args, char **argv)
 {
 	args->nbr_of_philo = ft_atoi(argv[1]);

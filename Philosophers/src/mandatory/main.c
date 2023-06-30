@@ -6,12 +6,13 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:17:56 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/28 14:30:40 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 14:50:17 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
+/*	Helper function to make sure that the given arguments are correct input. */
 static inline bool	validate_args(int argc, char **argv)
 {
 	if ((argc != 5 && argc != 6) || !is_all_digits(argv))
@@ -22,6 +23,7 @@ static inline bool	validate_args(int argc, char **argv)
 	return (true);
 }
 
+/*	Main function. */
 int	main(int argc, char **argv)
 {
 	t_args			args;

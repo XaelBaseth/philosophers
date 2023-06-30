@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_forks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acharlot <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:39:18 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/28 10:39:20 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:28:36 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
+/*	Function that initialize the forks mutex. */
 pthread_mutex_t	*init_forks(t_args *args)
 {
 	pthread_mutex_t	*forks;

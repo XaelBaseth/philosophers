@@ -6,12 +6,13 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:42:02 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/30 08:46:32 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:22:51 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
+/*	Helper function that lock the mutex right/left forks. */
 static void	pick_forks(t_philo *philo)
 {
 	if (philo->left_fork < philo->right_fork)
@@ -28,6 +29,7 @@ static void	pick_forks(t_philo *philo)
 	monitoring(philo, FORK);
 }
 
+/*	Helper function that unlock the mutex right/left forks. */
 static void	drop_forks(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->left_fork);
@@ -36,6 +38,7 @@ static void	drop_forks(t_philo *philo)
 	monitoring(philo, DROP);
 }
 
+/*	Helper function that handles the eating of the philosophers. */
 static void	eat(t_philo *philo)
 {
     pick_forks(philo);
@@ -50,13 +53,14 @@ static void	eat(t_philo *philo)
     pthread_mutex_unlock(&philo->eaten_meals_mutex);
 }
 
-
+/*	Helper function that handles the sleep of the philosophers. */
 static void	_sleep(t_philo *philo)
 {
 	monitoring(philo, SLEEP);
 	usleep(philo->args->time_to_sleep * MICROSEC);
 }
 
+/*	Function that handles the routine of the philosophers. */
 void	*routine(void	*philo)
 {
 	t_philo	*casted;

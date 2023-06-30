@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: acharlot <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:39:04 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/28 10:39:06 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:27:26 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
+/* U know what it does. */
 int	ft_atoi(char *str)
 {
 	int	res;

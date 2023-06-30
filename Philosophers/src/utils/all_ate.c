@@ -6,12 +6,14 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:10:07 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/30 10:27:23 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:26:46 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
+/*	Function that make sure that every philosophers ate the correct number of
+	times. */
 bool	all_ate_n_times(t_philo *philo)
 {
 	bool result;

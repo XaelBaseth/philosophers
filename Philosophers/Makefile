@@ -87,11 +87,11 @@ $(OBJF):
 
 mem:			$(OBJ) $(OBJF)
 					@$(CC) $(CFLAGS) $(MEMFLAGS) $(OBJ) -o $(NAME)
-					@$(ECHO) "$(YELLOW)[PHILOSOPHERS (memleaks)]:\t$(ORANGE)[==========]\t$(GREEN) => Success!$(DEF_COLOR)"
+					@$(ECHO) "$(YELLOW)[PHILOSOPHERS]:\t$(ORANGE)[==========]\t$(GREEN) => Success!$(DEF_COLOR)"
 
 thread:			$(OBJ) $(OBJF)
 					@$(CC) $(CFLAGS) $(THREADFLAGS) $(OBJ) -o $(NAME)
-					@$(ECHO) "$(YELLOW)[PHILOSOPHERS (threadleaks)]:\t$(ORANGE)[==========]\t$(GREEN) => Success!$(DEF_COLOR)"
+					@$(ECHO) "$(YELLOW)[PHILOSOPHERS]:\t$(ORANGE)[==========]\t$(GREEN) => Success!$(DEF_COLOR)"
 
 clean:
 					@$(RM) $(OBJ_DIR)
