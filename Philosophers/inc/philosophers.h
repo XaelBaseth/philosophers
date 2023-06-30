@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:22:29 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/29 10:19:04 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 09:13:43 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_args
 	int				time_to_sleep;
 	int				must_eat_times;
 	pthread_mutex_t	monitoring_mutex;
+	pthread_mutex_t	satisfied_philo_mutex;
 	int				satisfied_philos;
 	bool			someone_died;
 }					t_args;

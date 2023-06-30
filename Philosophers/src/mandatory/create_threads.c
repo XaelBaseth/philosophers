@@ -6,14 +6,14 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:12 by acharlot          #+#    #+#             */
-/*   Updated: 2023/06/29 12:34:14 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/06/30 10:27:32 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
 static void	*supervisor(void *philos)
-{
+{	
 	t_philo	*casted;
 	int		i;
 
@@ -34,9 +34,11 @@ static void	*supervisor(void *philos)
 			}
 			pthread_mutex_unlock(&casted[i].can_die);
 			pthread_mutex_lock(&casted[i].eaten_meals_mutex);
+			pthread_mutex_lock(&casted->args->satisfied_philo_mutex);
 			if (casted[i].eaten_meals == casted->args->must_eat_times)
 				casted->args->satisfied_philos += 1;
 			pthread_mutex_unlock(&casted[i].eaten_meals_mutex);
+			pthread_mutex_unlock(&casted->args->satisfied_philo_mutex);
 		}
 	}
 	printf("Every Philosopher had %d meals!\n", casted->args->must_eat_times);
