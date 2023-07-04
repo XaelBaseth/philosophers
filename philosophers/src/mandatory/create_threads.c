@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:12 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/04 11:02:35 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:11:49 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static bool	create_supervisor(t_args *args, pthread_mutex_t *forks,
 		destroy(args, forks, philos);
 		return (panic(THREAD_CREATE_ERR));
 	}
-	if (pthread_detach(supervisor_tid) != 0)
+	if (pthread_join(supervisor_tid, NULL) != 0)
 	{
 		destroy(args, forks, philos);
 		return (panic(THREAD_JOIN_ERR));
@@ -82,29 +82,24 @@ static bool	create_supervisor(t_args *args, pthread_mutex_t *forks,
 	the help of the supervisor function. */
 bool	create_threads(t_args *args, t_philo *philos, pthread_mutex_t *forks)
 {
-	int	i;
+    int i;
 
-	i = -1;
-	while (++i < args->nbr_of_philo)
-	{
-		philos[i].start_time = get_time();
-		if (pthread_create(&philos[i].t_id, NULL,
-				routine, (void *)&philos[i]) != 0)
+    i = -1;
+    while (++i < args->nbr_of_philo) {
+        philos[i].start_time = get_time();
+        if (pthread_create(&philos[i].t_id, NULL, routine, (void *)&philos[i]) != 0) 
 		{
-			destroy(args, forks, philos);
-			return (panic(THREAD_CREATE_ERR));
-		}
-	}
-	if (!create_supervisor(args, forks, philos))
-		return (EXIT_FAILURE);
-	i = -1;
-	while (++i < args->nbr_of_philo)
-	{
-		if (pthread_join(philos[i].t_id, NULL) != 0)
-		{
-			destroy(args, forks, philos);
-			return (panic(THREAD_JOIN_ERR));
-		}
-	}
-	return (true);
+            destroy(args, forks, philos);
+            return panic(THREAD_CREATE_ERR);
+        }
+        if (pthread_detach(philos[i].t_id) != 0) {
+            destroy(args, forks, philos);
+            return panic(THREAD_JOIN_ERR);
+        }
+    }
+    if (!create_supervisor(args, forks, philos)) {
+        return EXIT_FAILURE;
+    }
+
+    return true;
 }

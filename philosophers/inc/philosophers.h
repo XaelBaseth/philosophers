@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:22:29 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/03 13:32:41 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/04 14:34:54 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 //CONSTANT
 # define MICROSEC 1000
+
 
 //ERROR MESSAGE
 # define INVALID_ARGS_ERR "Invalid arguments"
