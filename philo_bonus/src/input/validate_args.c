@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 11:34:22 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/06 11:34:24 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/07 10:32:18 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static bool	is_all_digits(char **argv)
 		{
 			if (isdigit_or_signal(argv[i][j]) == false)
 			{
-				panic("Not all arguments are numbers.");
+				panic("Not all arguments are numbers.\n");
 				return (false);
 			}
 			j++;
@@ -47,10 +47,12 @@ static bool	is_all_digits(char **argv)
 /*	Validate the arguments given as parameter. */
 bool	validate_args(int argc, char **argv)
 {
-	if ((argc != 5 && argc != 6) || !is_all_digits(argv))
+	if ((argc != 5 && argc != 6))
 	{
 		panic("Invalide number of arguments.\n");
 		return (false);
 	}
+	if (!is_all_digits(argv))
+		return (false);
 	return (true);
 }

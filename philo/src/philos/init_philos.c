@@ -6,11 +6,18 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:41:56 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/04 11:18:40 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/07 13:13:41 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
+
+static void	check_init_philo(t_philo *philos, t_args *args, pthread_mutex_t
+	*forks_array)
+{
+	destroy(args, forks_array, philos);
+	panic(MUTEX_INIT_ERR);
+}
 
 /*	 Helper function that initialize the structures t_philos and t_args. */
 static void	initialize_philo(t_philo *philos, t_args *args, pthread_mutex_t
@@ -22,20 +29,9 @@ static void	initialize_philo(t_philo *philos, t_args *args, pthread_mutex_t
 	philos[i].right_fork = &forks_array[(i + 1) % args->nbr_of_philo];
 	philos[i].last_meal_time = get_time();
 	if (pthread_mutex_init(&philos[i].can_die, NULL) != 0)
-	{
-		destroy(args, forks_array, philos);
-		panic(MUTEX_INIT_ERR);
-	}
+		check_init_philo(philos, args, forks_array);
 	if (pthread_mutex_init(&philos[i].eaten_meals_mutex, NULL) != 0)
-	{
-		destroy(args, forks_array, philos);
-		panic(MUTEX_INIT_ERR);			
-	}
-	if (pthread_mutex_init(&philos[i].satisfied_philo_mutex, NULL) != 0)
-	{
-		destroy(args, forks_array, philos);
-		panic(MUTEX_INIT_ERR);
-	}
+		check_init_philo(philos, args, forks_array);
 	philos[i].args = args;
 }
 

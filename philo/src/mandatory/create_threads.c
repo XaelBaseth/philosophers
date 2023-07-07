@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:12 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/06 09:08:25 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:00:50 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,25 @@ static void	check_starvation(t_philo *philos)
 		if (starved(&philos[i]))
 		{
 			monitoring(philos, DEAD);
-			pthread_mutex_lock(&philos->satisfied_philo_mutex);
+			pthread_mutex_lock(&philos->args->someone_died_mutex);
 			philos->args->someone_died = true;
-			pthread_mutex_unlock(&philos->satisfied_philo_mutex);
+			pthread_mutex_unlock(&philos->args->someone_died_mutex);
+			pthread_mutex_lock(&philos->args->satisfied_philo_mutex);
+			pthread_mutex_unlock(&philos->args->satisfied_philo_mutex);
 			pthread_mutex_unlock(&philos[i].can_die);
 			return;
 		}
 		pthread_mutex_unlock(&philos[i].can_die);
 	}
+}
+
+static void	announcement(t_philo *philo)
+{
+	if (philo->args->someone_died)
+		printf("\033[31mA philosopher starved. End of experiment.\n\033[0m");
+	else
+		printf("\033[32mEvery Philosophers had %d meals!\n\033[0m", 
+			philo->args->must_eat_times);
 }
 
 /*	Helper function that checks if every philosophers eats. */
@@ -48,18 +59,14 @@ static void	*supervisor(void *philos)
 		while (++i < casted->args->nbr_of_philo)
 		{
 			pthread_mutex_lock(&casted[i].eaten_meals_mutex);
-			pthread_mutex_lock(&casted->satisfied_philo_mutex);
+			pthread_mutex_lock(&casted->args->satisfied_philo_mutex);
 			if (casted[i].eaten_meals == casted->args->must_eat_times)
 				casted->args->satisfied_philos++;
+			pthread_mutex_unlock(&casted->args->satisfied_philo_mutex);
 			pthread_mutex_unlock(&casted[i].eaten_meals_mutex);
-			pthread_mutex_unlock(&casted->satisfied_philo_mutex);
 		}
 	}
-	if (casted->args->someone_died)
-		printf("\033[31mA philosopher starved. End of experiment.\n\033[0m");
-	else
-		printf("\033[32mEvery Philosophers had %d meals!\n\033[0m", 
-			casted->args->must_eat_times);
+	announcement(casted);
 	return (NULL);
 }
 
