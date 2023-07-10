@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:14:01 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/10 12:30:41 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:00:53 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static bool	isdigit_(char c)
 static int	is_int(int i)
 {
 	if (i >= INT_MIN && i < INT_MAX)
-		return (false);
-	return (true);
+		return (true);
+	return (false);
 }
 
 /*	Makes sure that the given input is a number. */

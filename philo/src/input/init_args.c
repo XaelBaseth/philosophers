@@ -6,13 +6,13 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 13:14:20 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/10 12:19:28 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:07:32 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
-#define ARGS_0 "nbr_of_philosophers and must_eat_times must be bigger \
+#define ARGS_0 "Error: nbr_of_philosophers and must_eat_times must be bigger \
 than 0.\n"
 
 static bool	check_init_args(void)
