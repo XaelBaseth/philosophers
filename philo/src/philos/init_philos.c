@@ -6,22 +6,22 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 11:41:56 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/07 13:13:41 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:17:45 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/philosophers.h"
 
-static void	check_init_philo(t_philo *philos, t_args *args, pthread_mutex_t
-	*forks_array)
+static void	check_init_philo(t_philo *philos, t_args *args,
+	pthread_mutex_t *forks_array)
 {
 	destroy(args, forks_array, philos);
 	panic(MUTEX_INIT_ERR);
 }
 
 /*	 Helper function that initialize the structures t_philos and t_args. */
-static void	initialize_philo(t_philo *philos, t_args *args, pthread_mutex_t
-	*forks_array, int i)
+static void	initialize_philo(t_philo *philos, t_args *args,
+	pthread_mutex_t *forks_array, int i)
 {
 	philos[i].philo_nbr = i + 1;
 	philos[i].eaten_meals = 0;

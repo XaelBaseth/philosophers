@@ -17,8 +17,6 @@ SRC_DIR 	=	src/
 OBJ_DIR 	=	obj/
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -pthread -g3
-THREADFLAGS =	-fsanitize=thread
-MEMFLAGS	=	-fsanitize=address
 RM			=	rm -rf
 ECHO		=	echo
 
@@ -84,14 +82,6 @@ $(OBJF):
 					@mkdir -p $(OBJ_DIR)$(PHILOS_DIR)
 					@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 					@touch $(OBJF)
-
-mem:			$(OBJ) $(OBJF)
-					@$(CC) $(CFLAGS) $(MEMFLAGS) $(OBJ) -o $(NAME)
-					@$(ECHO) "$(YELLOW)[PHILOSOPHERS]:\t$(ORANGE)[==========]\t$(GREEN) => Success!$(DEF_COLOR)"
-
-thread:			$(OBJ) $(OBJF)
-					@$(CC) $(CFLAGS) $(THREADFLAGS) $(OBJ) -o $(NAME)
-					@$(ECHO) "$(YELLOW)[PHILOSOPHERS]:\t$(ORANGE)[==========]\t$(GREEN) => Success!$(DEF_COLOR)"
 
 clean:
 					@$(RM) $(OBJ_DIR)

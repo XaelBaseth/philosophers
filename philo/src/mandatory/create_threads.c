@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:41:12 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/07 15:00:50 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:21:11 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*	Helper function that checks if a philosophers died of starvation. */
 static void	check_starvation(t_philo *philos)
 {
-	int i;
-	
+	int	i;
+
 	i = -1;
 	while (++i < philos->args->nbr_of_philo)
 	{
@@ -30,7 +30,7 @@ static void	check_starvation(t_philo *philos)
 			pthread_mutex_lock(&philos->args->satisfied_philo_mutex);
 			pthread_mutex_unlock(&philos->args->satisfied_philo_mutex);
 			pthread_mutex_unlock(&philos[i].can_die);
-			return;
+			return ;
 		}
 		pthread_mutex_unlock(&philos[i].can_die);
 	}
@@ -41,16 +41,16 @@ static void	announcement(t_philo *philo)
 	if (philo->args->someone_died)
 		printf("\033[31mA philosopher starved. End of experiment.\n\033[0m");
 	else
-		printf("\033[32mEvery Philosophers had %d meals!\n\033[0m", 
+		printf("\033[32mEvery Philosophers had %d meals!\n\033[0m",
 			philo->args->must_eat_times);
 }
 
 /*	Helper function that checks if every philosophers eats. */
 static void	*supervisor(void *philos)
 {	
-	t_philo	*casted; 
+	t_philo	*casted;
 	int		i;
-	
+
 	casted = (t_philo *)philos;
 	while (!all_ate_n_times(casted) && !casted->args->someone_died)
 	{
@@ -78,7 +78,7 @@ static bool	create_supervisor(t_args *args, pthread_mutex_t *forks,
 	pthread_t	supervisor_tid;
 
 	if (pthread_create(&supervisor_tid, NULL, supervisor,
-		(void *)philos) != 0)
+			(void *)philos) != 0)
 	{
 		destroy(args, forks, philos);
 		return (panic(THREAD_CREATE_ERR));

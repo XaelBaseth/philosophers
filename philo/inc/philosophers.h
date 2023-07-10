@@ -6,7 +6,7 @@
 /*   By: acharlot <acharlot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 08:22:29 by acharlot          #+#    #+#             */
-/*   Updated: 2023/07/07 13:27:03 by acharlot         ###   ########.fr       */
+/*   Updated: 2023/07/10 12:24:39 by acharlot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 //CONSTANT
 # define MICROSEC 1000
-
 
 //ERROR MESSAGE
 # define INVALID_ARGS_ERR "Invalid arguments"
@@ -32,6 +31,7 @@
 # include <sys/time.h>
 # include <memory.h>
 # include <stdbool.h>
+# include <limits.h>
 
 //STRUCTURES
 typedef struct s_args
